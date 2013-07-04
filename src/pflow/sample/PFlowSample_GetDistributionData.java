@@ -18,18 +18,15 @@ import java.util.Map;
  * <dd>java pflow.sample.PFlowSample_GetDistributionData USERID USERPW</dd>
  * <dd>※　USERID, USERPDはご自身の登録されものをご利用ください</dd>
  * </dl>
- *  
  * @author H.Kanasugi @ Shibasaki.Lab. CSIS. UT
  * @since 2010-07-15
  */
-public class PFlowSample_GetDistributionData extends PFlowSample_Auth
-{
+public class PFlowSample_GetDistributionData extends PFlowSample_Auth {
 	/**
 	 * サンプルの実行
 	 * @param args 0:userid, 1:password
 	 */
-	public static void main(String[] args) throws Exception
-	{
+	public static void main(String[] args) throws Exception {
 		// ID/PW
 		String userid = args[0];
 		String passwd = args[1];
@@ -65,7 +62,7 @@ public class PFlowSample_GetDistributionData extends PFlowSample_Auth
 		// サンプルインスタンスの生成
 		PFlowSample_GetDistributionData sample = new PFlowSample_GetDistributionData();
 		// セッションの生成（ログイン）：1が表示されれば成功
-		System.out.println("CreateSession : " + sample.create_session(userid, passwd));
+		System.out.println("CreateSession : " + sample.createSession(userid, passwd));
 		// GetDistributionDataの実行：1が表示されれば成功
 		System.out.println("GetDistributionData : " + sample.exec(parameter));
 		// 結果の出力
@@ -78,22 +75,20 @@ public class PFlowSample_GetDistributionData extends PFlowSample_Auth
 			System.out.println();
 		}
 		// セッションIDを破棄:1が表示されれば成功
-		System.out.println("DestroySession : " + sample.destroy_session());
+		System.out.println("DestroySession : " + sample.destroySession());
 	}
 
 	
-	
 	// 出力結果用
-	List<String[]>  result = new ArrayList<String[]>();		// データ
-	List<String[]>	duration = new ArrayList<String[]>();	// 処理時間
+	/** data 			*/	List<String[]>  result = new ArrayList<String[]>();		// データ
+	/** response time	*/	List<String[]>	duration = new ArrayList<String[]>();	// 処理時間
 	
 	
 	/**
 	 * 検索結果を取得
 	 * @return 検索結果
 	 */
-	public List<String[]> getResult()
-	{
+	public List<String[]> getResult() {
 		return result;
 	}
 	
@@ -101,8 +96,7 @@ public class PFlowSample_GetDistributionData extends PFlowSample_Auth
 	 * 処理時間情報を取得
 	 * @return 処理時間情報
 	 */
-	public List<String[]> getDuration()
-	{
+	public List<String[]> getDuration() {
 		return duration;
 	}
 	
@@ -110,8 +104,7 @@ public class PFlowSample_GetDistributionData extends PFlowSample_Auth
 	 * API名称の取得
 	 * @return API名称
 	 */
-	public String getAPIName()
-	{
+	public String getAPIName() {
 		return "GetDistributionData";
 	}
 	
@@ -120,13 +113,12 @@ public class PFlowSample_GetDistributionData extends PFlowSample_Auth
 	 * @param parameters GetDistributionDataのパラメータ
 	 * @return ステータスコード
 	 */
-	public int exec( Map<String, Object> parameters )
-	{
+	public int exec( Map<String, Object> parameters ) {
 		// 初期化
 		result.clear();
 		duration.clear();
 		// セッション作成していない場合
-		if( !isAuthed() ) return -1;
+		if( !isAuthed() ) { return -1; }
 		
 		try {
 			// HTTP接続
@@ -136,7 +128,7 @@ public class PFlowSample_GetDistributionData extends PFlowSample_Auth
 			
 			// 1行目：ステータスコード
 			int status = Integer.parseInt(in.readLine());
-			if( status != 1 ) return status;
+			if( status != 1 ) { return status; }
 			
 			// 2行目～：該当データ
 			String line = null;

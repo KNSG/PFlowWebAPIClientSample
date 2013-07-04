@@ -8,18 +8,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <p>GetNearestRoadPointのクライアントサンプル</p>
+ * <b>GetNearestRoadPointのクライアントサンプル</b>
+ * <dl>
+ * <dt>Build:</dt>
+ * <dd>javac pflow\sample\PFlowSample_STInterpolatedPoints</dd>
+ * <dt>Usage:</dt>
+ * <dd>java pflow.sample.PFlowSample_STInterpolatedPoints USERID USERPW</dd>
+ * <dd>※　USERID, USERPDはご自身の登録されものをご利用ください</dd>
+ * </dl>
  * @author H.Kanasugi @ Shibasaki.Lab. CSIS. UT
  * @since 2010-07-15
  */
-public class PFlowSample_GetNearestRoadPoint extends PFlowSample_Auth
-{
+public class PFlowSample_GetNearestRoadPoint extends PFlowSample_Auth {
 	/**
 	 * サンプルの実行
 	 * @param args 0:userid, 1:password
 	 */
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		// ID/PWを設定
 		String userid = args[0];
 		String passwd = args[1];
@@ -35,7 +40,7 @@ public class PFlowSample_GetNearestRoadPoint extends PFlowSample_Auth
 		// サンプルインスタンスの生成
 		PFlowSample_GetNearestRoadPoint sample = new PFlowSample_GetNearestRoadPoint();
 		// セッションの生成（ログイン）：1が表示されれば成功
-		System.out.println("CreateSession : " + sample.create_session(userid, passwd));
+		System.out.println("CreateSession : " + sample.createSession(userid, passwd));
 
 		// GetSTInterpolatedPointsの実行：1が表示されれば成功
 		System.out.println("GetNearestRoadPoint : " + sample.exec(parameter));
@@ -47,24 +52,24 @@ public class PFlowSample_GetNearestRoadPoint extends PFlowSample_Auth
 		System.out.println(" latitude     : " + sample.getMatchingLatitude());
 
 		// セッションIDを破棄:1が表示されれば成功
-		System.out.println("DestroySession : " + sample.destroy_session());
+		System.out.println("DestroySession : " + sample.destroySession());
 	}
 	
 	
 	
 	// 取得結果用
-	int roadKindCode = 0;
-	int roadNo = 0;
-	String meshCode;
-	double matchingLongitude, matchingLatitude;
+	/** road type	*/	int roadKindCode = 0;
+	/** road no		*/	int roadNo = 0;
+	/** mesh code	*/	String meshCode;
+	/** result lon	*/	double matchingLongitude;
+	/** result lat	*/	double matchingLatitude;
 
 	
 	/**
 	 * WebAPIの名称を取得
 	 * @return WebAPI名称
 	 */
-	public String getAPIName()
-	{
+	public String getAPIName() {
 		return "GetNearestRoadPoint";
 	}
 	
@@ -73,10 +78,9 @@ public class PFlowSample_GetNearestRoadPoint extends PFlowSample_Auth
 	 * @param parameters GetNearestRoadPointのパラメータ
 	 * @return ステータスコード
 	 */
-	public int exec( Map<String, Object> parameters )
-	{
+	public int exec( Map<String, Object> parameters ) {
 		// セッション作成していない場合
-		if( !isAuthed() ) return -1;
+		if( !isAuthed() ) { return -1; }
 		
 		try {
 			// HTTP接続
@@ -115,8 +119,7 @@ public class PFlowSample_GetNearestRoadPoint extends PFlowSample_Auth
 	 * マッチした路線種別のコードを取得
 	 * @return 路線種別コード
 	 */
-	public int getRoadKindCode()
-	{
+	public int getRoadKindCode() {
 		return roadKindCode;
 	}
 	
@@ -124,8 +127,7 @@ public class PFlowSample_GetNearestRoadPoint extends PFlowSample_Auth
 	 * マッチした路線番号を取得
 	 * @return 路線番号
 	 */
-	public int getRoadNo()
-	{
+	public int getRoadNo() {
 		return roadNo;
 	}
 	
@@ -133,8 +135,7 @@ public class PFlowSample_GetNearestRoadPoint extends PFlowSample_Auth
 	 * マッチした位置の2次メッシュコードを取得
 	 * @return 2次メッシュコード
 	 */
-	public String getMeshCode()
-	{
+	public String getMeshCode() {
 		return meshCode;
 	}
 	
@@ -142,8 +143,7 @@ public class PFlowSample_GetNearestRoadPoint extends PFlowSample_Auth
 	 * 近傍座標の経度
 	 * @return 経度
 	 */
-	public double getMatchingLongitude()
-	{
+	public double getMatchingLongitude() {
 		return matchingLongitude;
 	}
 	
@@ -151,8 +151,7 @@ public class PFlowSample_GetNearestRoadPoint extends PFlowSample_Auth
 	 * 近傍座標の緯度
 	 * @return 緯度
 	 */
-	public double getMatchingLatitude()
-	{
+	public double getMatchingLatitude() {
 		return matchingLatitude;
 	}
 }

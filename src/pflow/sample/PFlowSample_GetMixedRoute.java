@@ -10,18 +10,23 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * <p>GetMixedRouteを使うサンプル</p>
+ * <b>GetMixedRouteを使うサンプル</b>
+ * <dl>
+ * <dt>Build:</dt>
+ * <dd>javac pflow\sample\PFlowSample_GetMixedRoute</dd>
+ * <dt>Usage:</dt>
+ * <dd>java pflow.sample.PFlowSample_GetMixedRoute USERID USERPW</dd>
+ * <dd>※　USERID, USERPDはご自身の登録されものをご利用ください</dd>
+ * </dl>
  * @author H.Kanasugi @ Shibasaki.Lab. CSIS. UT
  * @since 2010-07-15
  */
-public class PFlowSample_GetMixedRoute extends PFlowSample_Auth
-{
+public class PFlowSample_GetMixedRoute extends PFlowSample_Auth {
 	/**
 	 * サンプルの実行
 	 * @param args 0:userid, 1:password
 	 */
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		// ID/PW
 		String userid = args[0];
 		String passwd = args[1];
@@ -37,7 +42,7 @@ public class PFlowSample_GetMixedRoute extends PFlowSample_Auth
 		
 		PFlowSample_GetMixedRoute sample = new PFlowSample_GetMixedRoute();
 		// セッションの生成（ログイン）：1が表示されれば成功
-		System.out.println("CreateSession : " + sample.create_session(userid, passwd));
+		System.out.println("CreateSession : " + sample.createSession(userid, passwd));
 		// GetMixedRouteの実行：1が表示されれば成功
 		System.out.println("GetMixedRoute : " + sample.exec(parameter));
 		// 結果の出力
@@ -46,20 +51,18 @@ public class PFlowSample_GetMixedRoute extends PFlowSample_Auth
 			System.out.println();
 		}
 		// セッションIDを破棄:1が表示されれば成功
-		System.out.println("DestroySession : " + sample.destroy_session());
+		System.out.println("DestroySession : " + sample.destroySession());
 	}
 	
 	
-	
 	// 出力結果用
-	private List<String[]>  result = new ArrayList<String[]>();
+	/** response data	*/	private List<String[]>  result = new ArrayList<String[]>();
 	
 	/**
 	 * 検索結果を取得
 	 * @return 検索結果
 	 */
-	public List<String[]> getResult()
-	{
+	public List<String[]> getResult() {
 		return result;
 	}
 
@@ -67,8 +70,7 @@ public class PFlowSample_GetMixedRoute extends PFlowSample_Auth
 	 * API名称を取得
 	 * @return API名称
 	 */
-	public String getAPIName()
-	{
+	public String getAPIName() {
 		return "GetMixedRoute";
 	}
 	
@@ -77,12 +79,11 @@ public class PFlowSample_GetMixedRoute extends PFlowSample_Auth
 	 * @param parameters GetMixedRouteのパラメータ
 	 * @return ステータスコード
 	 */
-	public int exec( Map<String, Object> parameters )
-	{
+	public int exec( Map<String, Object> parameters ) {
 		// 初期化
 		result.clear();
 		// セッション作成していない場合
-		if( !isAuthed() ) return -1;
+		if( !isAuthed() ) { return -1; }
 		
 		try {
 			// HTTP接続

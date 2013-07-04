@@ -10,18 +10,23 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * <p>GetSTInterpolatedPointsのクライアントサンプル</p>
+ * <b>GetSTInterpolatedPointsのクライアントサンプル</b>
+ * <dl>
+ * <dt>Build:</dt>
+ * <dd>javac pflow\sample\PFlowSample_STInterpolatedPoints</dd>
+ * <dt>Usage:</dt>
+ * <dd>java pflow.sample.PFlowSample_STInterpolatedPoints USERID USERPW</dd>
+ * <dd>※　USERID, USERPDはご自身の登録されものをご利用ください</dd>
+ * </dl>
  * @author H.Kanasugi @ Shibasaki.Lab. CSIS. UT
  * @since 2010-07-15
  */
-public class PFlowSample_GetSTInterpolatedPoints extends PFlowSample_Auth
-{
+public class PFlowSample_GetSTInterpolatedPoints extends PFlowSample_Auth {
 	/**
 	 * サンプルの実行(ユーザIDとパスワードの指定が必要）
 	 * @param args 0:userid, 1:password
 	 */
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		// ID/PW
 		String userid = args[0];
 		String passwd = args[1];
@@ -42,7 +47,7 @@ public class PFlowSample_GetSTInterpolatedPoints extends PFlowSample_Auth
 		// サンプルインスタンスの生成
 		PFlowSample_GetSTInterpolatedPoints sample = new PFlowSample_GetSTInterpolatedPoints();
 		// セッションの生成（ログイン）：1が表示されれば成功
-		System.out.println("CreateSession : " + sample.create_session(userid, passwd));
+		System.out.println("CreateSession : " + sample.createSession(userid, passwd));
 		// GetSTInterpolatedPointsの実行：1が表示されれば成功
 		System.out.println("GetSTInterpolatedPoints : " + sample.exec(parameter));
 		// 結果の出力
@@ -53,7 +58,7 @@ public class PFlowSample_GetSTInterpolatedPoints extends PFlowSample_Auth
 			System.out.println(buf.substring(1));
 		}
 		// セッションIDを破棄:1が表示されれば成功
-		System.out.println("DestroySession : " + sample.destroy_session());
+		System.out.println("DestroySession : " + sample.destroySession());
 	}
 	
 	
@@ -65,8 +70,7 @@ public class PFlowSample_GetSTInterpolatedPoints extends PFlowSample_Auth
 	 * 結果配列
 	 * @return 結果
 	 */
-	public List<String[]> getResult()
-	{
+	public List<String[]> getResult() {
 		return result;
 	}
 	
@@ -74,8 +78,7 @@ public class PFlowSample_GetSTInterpolatedPoints extends PFlowSample_Auth
 	 * WebAPIの名称を取得
 	 * @return WebAPI名称
 	 */
-	public String getAPIName()
-	{
+	public String getAPIName() {
 		return "GetSTInterpolatedPoints";
 	}
 	
@@ -84,13 +87,12 @@ public class PFlowSample_GetSTInterpolatedPoints extends PFlowSample_Auth
 	 * @param parameters GetSTInterpolatedPointsのパラメータ
 	 * @return ステータスコード
 	 */
-	public int exec( Map<String, Object> parameters )
-	{
+	public int exec( Map<String, Object> parameters ) {
 		// 初期化
 		result.clear();
 		
 		// セッション作成（ログイン）していない場合
-		if( !isAuthed() ) return -1;
+		if( !isAuthed() ) { return -1; }
 		
 		try {
 			// HTTP接続
@@ -100,7 +102,7 @@ public class PFlowSample_GetSTInterpolatedPoints extends PFlowSample_Auth
 
 			// 1行目：ステータスコード
 			int status = Integer.parseInt(in.readLine());
-			if( status != 1 ) return status;
+			if( status != 1 ) { return status; }
 
 			// 2行目～：該当データ
 			String line = null;

@@ -11,18 +11,17 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * <p>動線解析WebAPIの認証用サンプル</p>
+ * 動線解析WebAPIの認証用サンプル
  * @author H.Kanasugi @ Shibasaki.Lab. CSIS. UT
  * @since 2010-07-15
  */
-public abstract class PFlowSample_Auth
-{
+public abstract class PFlowSample_Auth {
 	/** 動線解析PFWEBAPIのURL */
 	public static final String API_URL = "http://pflow.csis.u-tokyo.ac.jp/webapi/";
 
 	// ID用
-	private String cookie;
-	private String sessionID;	
+	/** cookie 用	*/	private String cookie;
+	/** session ID 	*/	private String sessionID;	
 	
 	/**
 	 * ユーザIDとパスワードを指定してセッションを作成
@@ -30,10 +29,9 @@ public abstract class PFlowSample_Auth
 	 * @param password パスワード
 	 * @return セッション作成完了ならば1、それ以外はすべてエラー(エラーコードは仕様書参照)
 	 */
-	public int create_session(String userid, String password)
-	{
+	public int createSession(String userid, String password) {
 		// セッション作成済み
-		if( isAuthed() ) return -1;
+		if( isAuthed() ) { return -1; }
 		try {
 			// WebAPI URLのセット
 			URL url = new URL(API_URL + "CreateSession");
@@ -52,15 +50,13 @@ public abstract class PFlowSample_Auth
 			con.disconnect();
 			
 			// セッションID取得できず
-			if( line_tokens.length == 1 ) return Integer.parseInt(line_tokens[0]); 
+			if( line_tokens.length == 1 ) { return Integer.parseInt(line_tokens[0]); } 
 			
 			// ログイン完了:セッションIDとクッキー情報を保持
 			sessionID = line_tokens[1];
 			StringBuffer buf = new StringBuffer();
 			List<String> cookies = con.getHeaderFields().get("Set-Cookie");
-			for(String c : cookies) {
-				buf.append(c).append(";");
-			}
+			for(String c : cookies) { buf.append(c).append(";"); }
 			cookie = buf.substring(0, buf.length()-1);
 			
 			// ステータスコードを返す
@@ -76,10 +72,9 @@ public abstract class PFlowSample_Auth
 	 * 取得しているセッションを破棄します
 	 * @return セッション破棄完了ならば1、それ以外はすべてエラー(エラーコードは仕様書参照)
 	 */
-	public int destroy_session()
-	{
+	public int destroySession() {
 		// セッション作成していない場合
-		if( !isAuthed() ) return -1;
+		if( !isAuthed() ) { return -1; }
 		
 		try {
 			// WebAPI URLのセット
@@ -119,10 +114,9 @@ public abstract class PFlowSample_Auth
 	 * @return HTTP接続。CreateSessionしていない場合はnull
 	 * @throws IOException IO例外
 	 */
-	public HttpURLConnection openHttpConnection(Map<String, Object> parameters) throws IOException
-	{
+	public HttpURLConnection openHttpConnection(Map<String, Object> parameters) throws IOException {
 		// 認証済み確認
-		if( !isAuthed() ) return null;
+		if( !isAuthed() ) { return null; }
 		
 		// WebAPI URL作成
 		URL url = new URL(API_URL + getAPIName());
@@ -150,8 +144,7 @@ public abstract class PFlowSample_Auth
 	 * 認証が完了し、セッションIDが取得できているかどうかを判定
 	 * @return 認証済みであればtrue、そうでなければfalse
 	 */
-	protected boolean isAuthed()
-	{
+	protected boolean isAuthed() {
 		return sessionID != null && cookie != null;
 	}
 	
@@ -159,8 +152,7 @@ public abstract class PFlowSample_Auth
 	 * セッションIDを取得
 	 * @return セッションID
 	 */
-	protected String getSessionID()
-	{
+	protected String getSessionID() {
 		return (sessionID == null) ? "" : sessionID;
 	}
 	
@@ -168,8 +160,7 @@ public abstract class PFlowSample_Auth
 	 * クッキー情報を取得
 	 * @return クッキー文字列
 	 */
-	protected String getCookie()
-	{
+	protected String getCookie() {
 		return (cookie == null) ? "" : cookie;
 	}
 	
