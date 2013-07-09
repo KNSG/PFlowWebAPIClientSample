@@ -16,12 +16,11 @@ import java.util.Map;
  * @since 2010-07-15
  */
 public abstract class PFlowSample_Auth {
-	/** 動線解析PFWEBAPIのURL */
-	public static final String API_URL = "http://pflow.csis.u-tokyo.ac.jp/webapi/";
+	/** 動線解析PFWEBAPIのURL */	public static final String API_URL = "http://pflow.csis.u-tokyo.ac.jp/webapi/";
 
 	// ID用
-	/** cookie 用	*/	private String cookie;
-	/** session ID 	*/	private String sessionID;	
+	/** cookie 用			*/	private String cookie;
+	/** session ID 			*/	private String sessionID;	
 	
 	/**
 	 * ユーザIDとパスワードを指定してセッションを作成
